@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "packageVersion": "R3.5-20260718",
+  "updatePolicy": "Block",
+  "deepSeek": {
+    "baseUrl": "https://api.deepseek.com/anthropic",
+    "models": [
+      "claude-opus-4-8",
+      "claude-sonnet-5"
+    ],
+    "apiKeyIncluded": false
+  },
+  "storage": {
+    "claudeRuntime": "%LOCALAPPDATA%\\Claude-3p",
+    "claudeRuntimeMustBePhysical": true,
+    "minimumRuntimeFreeGiB": 20,
+    "minimumDataRootFreeGiB": 5
+  },
+  "office": {
+    "wordMcp": "AutoWhenDetected",
+    "excelMcp": "AutoWhenDetected",
+    "powerPoint": "DetectionOnly"
+  }
+}

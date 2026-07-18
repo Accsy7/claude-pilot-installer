@@ -1,0 +1,44 @@
+# Proprietary or third-party offline payloads
+/vendor/
+/_tools/
+/输出/
+/branding/
+/packaging/
+/docs/
+/tests/
+/README-R3.5.md
+
+# Generated build outputs
+/build/publish/
+/build/*
+!/build/Build-PublicCore.ps1
+/artifacts/
+/**/bin/
+/**/obj/
+*.zip
+*.sha256.txt
+*.log
+
+# Local shell metadata generated for delivery folders
+/.ClaudePilotFolder.ico
+/desktop.ini
+
+# Secrets and signing material must never enter source control
+.env
+.env.*
+*.pfx
+*.p12
+*.pem
+*.key
+*.cer
+*.crt
+secrets.*
+credentials.*
+
+# IDE and operating-system state
+.vs/
+.vscode/
+*.user
+*.suo
+.DS_Store
+Thumbs.db

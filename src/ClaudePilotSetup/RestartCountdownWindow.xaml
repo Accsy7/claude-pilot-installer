@@ -1,0 +1,35 @@
+<Window x:Class="ClaudePilotSetup.RestartCountdownWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="需要重启" Width="520" Height="260"
+        ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
+        Background="{StaticResource CanvasBrush}" Icon="Assets/claude.ico"
+        UseLayoutRounding="True" SnapsToDevicePixels="True">
+    <Grid Margin="30,24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock Text="安装已准备完成" FontFamily="{StaticResource BrandFont}"
+                       FontSize="25" FontWeight="Medium" />
+            <TextBlock Text="重启后将自动继续。" Margin="0,6,0,0"
+                       Foreground="{StaticResource MutedInkBrush}" FontSize="13" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" VerticalAlignment="Center">
+            <TextBlock x:Name="CountdownText" Text="将在 60 秒后重启"
+                       HorizontalAlignment="Center" FontSize="18" FontWeight="SemiBold" />
+            <TextBlock Text="请先保存其他程序中的文件。" Margin="0,8,0,0"
+                       HorizontalAlignment="Center" Foreground="{StaticResource MutedInkBrush}" FontSize="12.5" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="稍后重启" Click="RestartLaterButton_Click" />
+            <Button Content="立即重启" Style="{StaticResource PrimaryButton}" Margin="0"
+                    Click="RestartNowButton_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

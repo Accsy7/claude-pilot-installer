@@ -1,0 +1,67 @@
+<Window x:Class="ClaudePilotSetup.DeploymentConsentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="部署确认" Width="680" Height="520" MinWidth="680" MinHeight="520"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Background="{StaticResource CanvasBrush}" Icon="Assets/claude.ico"
+        UseLayoutRounding="True" SnapsToDevicePixels="True">
+    <Grid Margin="30,26">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="42" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image Width="34" Height="34" Source="Assets/claude-symbol-1280.png"
+                   Stretch="Uniform" VerticalAlignment="Top"
+                   RenderOptions.BitmapScalingMode="HighQuality" />
+            <StackPanel Grid.Column="1" Margin="10,-2,0,0">
+                <TextBlock Text="托管式安装确认" FontFamily="{StaticResource BrandFont}"
+                           FontSize="25" FontWeight="Medium" />
+                <TextBlock Text="Claude Desktop R3.5" Margin="1,4,0,0"
+                           Foreground="{StaticResource MutedInkBrush}" FontSize="12.5" />
+            </StackPanel>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" Margin="0,28,0,20"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled"
+                      CanContentScroll="False" PanningMode="VerticalOnly"
+                      FocusVisualStyle="{x:Null}">
+            <StackPanel Margin="0,0,12,0">
+                <TextBlock Text="自动操作权限" Style="{StaticResource SectionTitle}" />
+                <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" FontSize="13" LineHeight="23"
+                           Text="你同意安装器申请管理员权限，安装或修复 Claude、Cowork、Git、中文适配、Flash Max 和已检测到的 Word/Excel 联动；必要时关闭或强制结束受管的 Claude/Cowork 进程、启用 Windows 虚拟化功能，并在 60 秒倒计时后重启并自动续装。发生异常时，安装器会恢复到上一可用状态。" />
+
+                <TextBlock Text="授权范围" Style="{StaticResource SectionTitle}" Margin="0,24,0,0" />
+                <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" FontSize="13" LineHeight="23"
+                           Text="你确认 Office 安装、激活、KMS/MAK 与许可证管理不在本次授权范围；BIOS 虚拟化设置和安全软件放行由你按设备提示处理；任务生成并保存到工作目录的文档继续保留。" />
+
+                <TextBlock Text="密钥与诊断" Style="{StaticResource SectionTitle}" Margin="0,24,0,0" />
+                <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" FontSize="13" LineHeight="23"
+                           Text="你同意安装器在本机临时使用 DeepSeek API Key 完成验证和配置；日志、状态、报告与交付包只保存脱敏结果。诊断包仅在你主动导出并再次确认后保存在本地。" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <CheckBox x:Name="AcceptCheckBox"
+                      Content="我接受上述自动操作与本地数据处理"
+                      FontSize="13" FontWeight="SemiBold"
+                      Checked="AcceptCheckBox_Changed" Unchecked="AcceptCheckBox_Changed" />
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
+                <Button Content="退出" Margin="0,0,14,0" Click="ExitButton_Click" />
+                <Button x:Name="ContinueButton" Content="继续" Style="{StaticResource PrimaryButton}"
+                        Margin="0" IsEnabled="False" Click="ContinueButton_Click" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

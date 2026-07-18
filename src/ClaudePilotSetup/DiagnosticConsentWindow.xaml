@@ -1,0 +1,35 @@
+<Window x:Class="ClaudePilotSetup.DiagnosticConsentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="导出诊断"
+        Width="520" Height="250" MinWidth="520" MinHeight="250"
+        ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
+        Background="{StaticResource CanvasBrush}" Icon="Assets/claude.ico"
+        UseLayoutRounding="True" SnapsToDevicePixels="True">
+    <Grid Margin="26,18,26,16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="14" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock Text="导出诊断" FontFamily="{StaticResource BrandFont}"
+                       FontSize="23" FontWeight="Medium" />
+            <TextBlock Text="系统环境、组件状态、部署校验与最近 200 行脱敏日志。"
+                       Foreground="{StaticResource MutedInkBrush}" FontSize="11.5" Margin="0,3,0,0" />
+        </StackPanel>
+
+        <CheckBox x:Name="ConfirmCheckBox" Grid.Row="2"
+                  Content="我确认导出以上信息" FocusVisualStyle="{x:Null}"
+                  Checked="ConfirmCheckBox_Changed" Unchecked="ConfirmCheckBox_Changed" />
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="取消" Margin="0,0,8,0" Click="CancelButton_Click" />
+            <Button x:Name="ExportButton" Content="选择保存位置" Style="{StaticResource PrimaryButton}"
+                    Margin="0" IsEnabled="False" Click="ExportButton_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

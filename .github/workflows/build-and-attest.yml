@@ -1,0 +1,85 @@
+name: Build and attest installer core
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up pinned .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: src/ClaudePilotSetup/packages.lock.json
+
+      - name: Build installer core and SHA-256
+        shell: powershell
+        run: >-
+          powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass
+          -File .\build\Build-PublicCore.ps1 -Clean
+
+      - name: Upload installer core
+        uses: actions/upload-artifact@v4
+        with:
+          name: claude-pilot-installer-core-${{ github.sha }}
+          path: |
+            artifacts/public/win-x64/ClaudePilotSetup.exe
+            artifacts/public/win-x64/SHA256SUMS.txt
+            artifacts/public/win-x64/BUILD-INFO.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Attest executable build provenance
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: artifacts/public/win-x64/ClaudePilotSetup.exe
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download built files
+        uses: actions/download-artifact@v4
+        with:
+          name: claude-pilot-installer-core-${{ github.sha }}
+          path: release
+
+      - name: Create GitHub release
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $assets = Get-ChildItem -LiteralPath release -File | ForEach-Object { $_.FullName }
+          if (-not $assets) { throw 'No release assets were downloaded.' }
+          $notesPath = Join-Path $env:RUNNER_TEMP 'release-notes.md'
+          @'
+          Public transparency build of the self-developed Claude Pilot installer core.
+
+          This release does not contain Claude Desktop, Cowork, Git, localization patches, Flash Max resources, API keys, user data or the complete offline deployment package.
+
+          Verify SHA-256 with `SHA256SUMS.txt` and provenance with:
+
+          `gh attestation verify ClaudePilotSetup.exe --repo Accsy7/claude-pilot-installer`
+
+          This is not an Authenticode publisher signature and does not remove Windows SmartScreen warnings.
+          '@ | Set-Content -LiteralPath $notesPath -Encoding UTF8
+          & gh release create $env:GITHUB_REF_NAME @assets --verify-tag --title $env:GITHUB_REF_NAME --notes-file $notesPath

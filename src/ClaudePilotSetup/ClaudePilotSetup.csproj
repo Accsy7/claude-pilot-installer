@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>ClaudePilotSetup</AssemblyName>
+    <RootNamespace>ClaudePilotSetup</RootNamespace>
+    <ApplicationIcon>Assets\claude.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Version>3.5.0.0</Version>
+    <FileVersion>3.5.0.0</FileVersion>
+    <AssemblyVersion>3.5.0.0</AssemblyVersion>
+    <Product>Claude Pilot R3.5</Product>
+    <Company>Claude Pilot Offline Deployment</Company>
+    <Description>Claude Desktop and Cowork R3.5 managed offline deployment, recovery, verification, diagnostics and uninstall UI.</Description>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\claude.ico" />
+    <Resource Include="Assets\claude-symbol-1280.png" />
+    <Resource Include="Assets\Fonts\NotoSansSC-VF.ttf" />
+    <Resource Include="Assets\Fonts\NotoSerifSC-VF.ttf" />
+    <Resource Include="Assets\Fonts\OFL-NotoSansSC.txt" />
+    <Resource Include="Assets\Fonts\OFL-NotoSerifSC.txt" />
+  </ItemGroup>
+</Project>
