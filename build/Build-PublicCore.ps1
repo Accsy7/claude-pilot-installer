@@ -41,11 +41,11 @@ if (Test-Path -LiteralPath $localNugetPackages -PathType Container) {
     $env:NUGET_PACKAGES = $localNugetPackages
 }
 $localDotnetHome = Join-Path $repositoryRoot '_tools\dotnet-home'
-$env:DOTNET_CLI_HOME = if (Test-Path -LiteralPath $localDotnetHome -PathType Container) {
-    $localDotnetHome
+if (Test-Path -LiteralPath $localDotnetHome -PathType Container) {
+    $env:DOTNET_CLI_HOME = $localDotnetHome
 }
-else {
-    Join-Path $artifactsRoot '.dotnet-home'
+elseif (-not [string]::Equals($env:GITHUB_ACTIONS, 'true', [StringComparison]::OrdinalIgnoreCase)) {
+    $env:DOTNET_CLI_HOME = Join-Path $artifactsRoot '.dotnet-home'
 }
 
 & $dotnet restore $projectPath --locked-mode --runtime win-x64
